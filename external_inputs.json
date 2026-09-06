@@ -1,0 +1,162 @@
+{
+  "scope": "Explicit general hypotheses of External.Library; these propositions are not proved by the conditional certificate.",
+  "inputs": [
+    {
+      "field": "intersection",
+      "statement": "HeightOneIntersection",
+      "file": "NormalLocus/ExternalStatements.lean",
+      "tex_labels": [
+        "lem:affine-hartogs"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/0AVB"
+      ],
+      "form": "Affine scheme/stalk formulation of the M=R height-one intersection theorem."
+    },
+    {
+      "field": "dimension",
+      "statement": "FiniteLocalDimension",
+      "file": "NormalLocus/BoundaryRemoval.lean",
+      "tex_labels": [
+        "prop:boundary-codim-two"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/00OG"
+      ],
+      "form": "Local dimension preservation under finite dominant maps over a normal target, using going down."
+    },
+    {
+      "field": "normalization",
+      "statement": "NormalizationPieces",
+      "file": "NormalLocus/NormalizedClosure.lean",
+      "tex_labels": [
+        "prop:boundary-codim-two"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/0BXQ",
+        "https://stacks.math.columbia.edu/tag/0357",
+        "https://stacks.math.columbia.edu/tag/0H7D"
+      ],
+      "form": "Component form of finite normalization and its isomorphism over a normal dense open; includes the standard affine/global-section identifications."
+    },
+    {
+      "field": "boundary",
+      "statement": "AffineBoundaryDivisors",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "prop:pure-codim-one",
+        "thm:boundary-collision"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/0BCV"
+      ],
+      "form": "Finite prime-divisor decomposition of the boundary of a dense affine open."
+    },
+    {
+      "field": "etaleDivisors",
+      "statement": "EtalePullbackDivisors",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "thm:boundary-collision"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/02GH",
+        "https://stacks.math.columbia.edu/tag/00OG"
+      ],
+      "form": "Preservation of pure codimension one under etale pullback between integral affine Noetherian schemes."
+    },
+    {
+      "field": "etaleNormal",
+      "statement": "EtalePreservesNormal",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "lem:normal-neighborhood"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/0336"
+      ],
+      "form": "Normality of all actual local rings is preserved by etale morphisms."
+    },
+    {
+      "field": "abhyankar",
+      "statement": "AbhyankarLocalIrreducibility",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "thm:boundary-collision"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/0EYH",
+        "https://stacks.math.columbia.edu/tag/0EYG",
+        "https://stacks.math.columbia.edu/tag/09E9"
+      ],
+      "form": "Local topological consequence of the regular reduced inverse divisor; includes shrinking at a regular divisor point, characteristic-zero tameness, and normalization identification. It contains no boundary or interior closure."
+    },
+    {
+      "field": "divisorImage",
+      "statement": "FiniteDivisorImage",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "prop:pure-codim-one"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/00OG"
+      ],
+      "form": "Prime divisors map to prime divisors under a finite dominant map of integral affine Noetherian schemes over a normal target."
+    },
+    {
+      "field": "divisorEquations",
+      "statement": "PolynomialPrimeDivisorEquation",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "prop:nonempty"
+      ],
+      "sources": [],
+      "form": "Height-one primes in a polynomial UFD are principal; expressed as an equation for a prime divisor of affine space."
+    },
+    {
+      "field": "affineRegular",
+      "statement": "AffineSpaceRegular",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "thm:boundary-collision"
+      ],
+      "sources": [],
+      "form": "All local rings of complex affine space are regular, in the cotangent-dimension definition."
+    },
+    {
+      "field": "normalOpen",
+      "statement": "NormalLocusOpen",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "lem:normal-neighborhood"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/0BXQ"
+      ],
+      "form": "Openness of the normal locus of a reduced complex algebraic scheme; obtainable from finite normalization and coherent support."
+    },
+    {
+      "field": "domainComponents",
+      "statement": "DomainPointUniqueComponent",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "lem:normal-neighborhood"
+      ],
+      "sources": [
+        "https://stacks.math.columbia.edu/tag/00ET"
+      ],
+      "form": "Stalk/minimal-prime correspondence: a domain stalk has a unique ambient irreducible component through the point."
+    },
+    {
+      "field": "regularOpen",
+      "statement": "RegularOpenImmersion",
+      "file": "NormalLocus/ExternalGeometry.lean",
+      "tex_labels": [
+        "thm:boundary-collision",
+        "lem:normal-neighborhood"
+      ],
+      "sources": [],
+      "form": "Regularity is invariant under the actual stalk-ring isomorphisms of an open immersion."
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+<stdin>:94:8: warning: declaration uses `sorry`
+<stdin>:95:0: error: The composition certificate has nonstandard axioms: [sorryAx]

@@ -1,0 +1,7 @@
+{"trust_level": 0,
+ "status": "PASS",
+ "mode": "official-kernel-fresh-dependency-closure",
+ "independent_checker": false,
+ "declaration_count": 75402,
+ "certificate": "NormalLocus.normal_locus_finite_etale_conditional",
+ "axioms": ["Classical.choice", "propext", "Quot.sound"]}

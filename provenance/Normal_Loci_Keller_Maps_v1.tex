@@ -1,0 +1,674 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{lmodern}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage[shortlabels]{enumitem}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{booktabs}
+\usepackage{tikz-cd}
+\usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=green!50!black,urlcolor=blue!80!black]{hyperref}
+
+% Theorem Environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+% Math Operators
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Sing}{Sing}
+\DeclareMathOperator{\Reg}{Reg}
+\DeclareMathOperator{\NonNormal}{NonNormal}
+\DeclareMathOperator{\Miss}{Miss}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Norm}{Norm}
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fp}{\mathfrak{p}}
+
+\title[Normal Loci of Non-Properness Sets of Keller Maps]{Normal Loci of Non-Properness Sets of Keller Maps\\and the Conductor Principle}
+
+\author{}
+\address{}
+\date{August 2026}
+
+\begin{document}
+
+\begin{abstract}
+Let $F: \A^n_\C \to \A^n_\C$ be a polynomial Keller map ($\det JF \in \C^\times$). Let $S_F \subset \A^n_\C$ denote its non-properness locus endowed with its reduced scheme structure, and let $S_F^{\mathrm{nor}} \subset S_F$ be its normal locus. We prove that the restricted morphism
+\[
+F^{-1}(S_F^{\mathrm{nor}}) \longrightarrow S_F^{\mathrm{nor}}
+\]
+is a finite, \'{e}tale, and surjective morphism. Consequently, the missing value locus $\Miss(F) = \A^n_\C \setminus F(\A^n_\C)$ is contained in the non-normal locus of $S_F$, which coincides with the vanishing locus of the conductor ideal of the normalization:
+\[
+\Miss(F) \subseteq \NonNormal(S_F) = V(\fc_{S_F^\nu / S_F}).
+\]
+In particular, if $S_F$ is normal (e.g.\ smooth), then $F$ is globally surjective, extending and refining Jelonek's 2022 smooth criterion.
+
+The proof is self-contained modulo standard foundational results in algebraic geometry:
+\begin{enumerate}[(i)]
+\item Zariski's Main Theorem and the identification of relative normalization with function-field normalization for normal varieties (Stacks Tag 02LR, Tag 03GR);
+\item the pure codimension-1 affine boundary theorem (Stacks Tag 0BCV);
+\item Abhyankar's regular divisor theorem (Stacks Tag 0EYH / Lemma 58.31.6) to exclude interior-boundary collision over regular points;
+\item Serre's $R_1+S_2$ criterion and height-one prime intersection algebraic Hartogs rigidity (Stacks Tag 0AVB) for affine schemes (Stacks Tag 01HX).
+\end{enumerate}
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+%=============================================================================
+\section{Introduction and Main Results}
+%=============================================================================
+
+\subsection{Background}
+Let $k = \C$ be the field of complex numbers. The classical Jacobian Conjecture of Keller \cite{Keller1939} asserts that any polynomial map $F: \A^n_\C \to \A^n_\C$ with non-vanishing constant Jacobian determinant $\det JF \in \C^\times$ (a \emph{Keller map}) is an invertible polynomial automorphism. By the Ax--Grothendieck theorem and a fundamental result of Bia{\l}ynicki-Birula and Rosenlicht \cite{BiaRosen1962}, every injective polynomial endomorphism of $\A^n_\C$ is an automorphism. In the context of non-proper polynomial mappings and asymptotic values, understanding the surjectivity and the locus of omitted values
+\[
+\Miss(F) := \A^n_\C \setminus F(\A^n_\C)
+\]
+plays a central role.
+
+In 1993, Jelonek \cite{Jelonek1993} initiated the systematic geometric study of the non-properness locus $S_F$ of a dominant polynomial mapping $F: X \to Y$, defined as the set of points $y \in Y$ at which $F$ is not topologically or algebraically proper. Jelonek established that for any dominant polynomial map, $S_F$ is a pure codimension-1 algebraic subvariety (a hypersurface) of $Y$, or is empty. It is well known that any omitted value of $F$ must lie in $S_F$:
+\[
+\Miss(F) \subseteq S_F.
+\]
+
+In 2022, Jelonek \cite{Jelonek2022} proved that \emph{if the non-properness hypersurface $S_F$ is smooth, then $F$ is globally surjective} ($\Miss(F) = \emptyset$). 
+
+The purpose of this paper is to uncover the precise geometric mechanism governing the non-properness locus of Keller maps and to upgrade Jelonek's smooth criterion to a pointwise structural theorem on the normal locus $S_F^{\mathrm{nor}}$.
+
+\subsection{Main Theorems}
+Throughout this paper, let $F: X = \A^n_\C \to Y = \A^n_\C$ be a Keller map. Let $S = S_F \subset Y$ denote its non-properness set endowed with its reduced subscheme structure. Let
+\[
+S_F^{\mathrm{nor}} := \left\{ y \in S_F : \cO_{S_F, y} \text{ is an integrally closed domain (normal local ring)} \right\}
+\]
+denote the normal locus of $S_F$.
+
+Our first main result is the following structural rigidity theorem:
+
+\begin{theorem}[Normal-Locus Finite \'{E}tale Theorem]\label{thm:normal-locus}
+Let $F: \A^n_\C \to \A^n_\C$ be a polynomial Keller map ($\det JF \in \C^\times$). Then the restricted morphism
+\[
+F^{-1}(S_F^{\mathrm{nor}}) \longrightarrow S_F^{\mathrm{nor}}
+\]
+is a finite, \'{e}tale, and surjective morphism.
+\end{theorem}
+
+Theorem~\ref{thm:normal-locus} immediately establishes that missing values are mathematically forbidden from occurring at any normal point of $S_F$:
+
+\begin{corollary}[The Conductor Principle]\label{cor:conductor}
+Let $F: \A^n_\C \to \A^n_\C$ be a polynomial Keller map. Then:
+\[
+\Miss(F) \subseteq \NonNormal(S_F).
+\]
+Equivalently, if $\nu: S_F^\nu \to S_F$ is the normalization of $S_F$ and $\fc_{S_F^\nu / S_F} = \Ann_{\cO_{S_F}}(\nu_* \cO_{S_F^\nu} / \cO_{S_F})$ is the conductor ideal, then:
+\[
+\Miss(F) \subseteq V(\fc_{S_F^\nu / S_F}).
+\]
+\end{corollary}
+
+\begin{corollary}[Global Normal Surjectivity]\label{cor:normal-surjectivity}
+If $S_F$ is a globally normal variety (in particular, if $S_F$ is smooth), then $F$ is surjective:
+\[
+F(\A^n_\C) = \A^n_\C.
+\]
+\end{corollary}
+
+\begin{corollary}[Defect Rigidity]\label{cor:defect-rigidity}
+Let $W \subseteq S_F^{\mathrm{nor}}$ be any connected component. Then there exists an integer $r_W \ge 1$ such that
+\[
+\#F^{-1}(y) = r_W \quad \text{for all } y \in W.
+\]
+In particular, the fiber cardinality cannot drop or jump on the normal locus.
+\end{corollary}
+
+\subsection{The Role of Normality in Boundary Rigidity}
+
+Normality enters the proof at two distinct stages.
+
+First, let $Z \subset S_F^{\mathrm{nor}}$ be the normal irreducible affine neighborhood introduced in Section~3.  The Boundary Collision Lemma shows that every boundary point of the closure of $F^{-1}(Z)$ must map into $\Sing(Z)$.  Since $Z$ is normal, Serre's condition $R_1$ implies that $\Sing(Z)$ has codimension at least $2$.  Thus Abhyankar's regular-divisor theorem controls the codimension-$1$ geometry, while normality forces every remaining boundary phenomenon into higher codimension.
+
+Second, since $F^{-1}(Z) \to Z$ is \'{e}tale and $Z$ is normal, $T := F^{-1}(Z)$ is itself normal.  Hence the normalization $\widetilde{C} \to C$ of its closure is an isomorphism over $T$. The normal scheme $\widetilde{C}$ satisfies the height-one intersection property
+\[
+\Gamma(\widetilde{C}_i, \cO_{\widetilde{C}_i}) = \bigcap_{\operatorname{ht}\fp=1} (\cO_{\widetilde{C}_i})_\fp
+\]
+on each irreducible component.  Since the complement $\widetilde{C}_i \setminus T_i$ has codimension at least $2$, restriction induces
+\[
+\Gamma(\widetilde{C}_i, \cO_{\widetilde{C}_i}) \cong \Gamma(T_i, \cO_{T_i}).
+\]
+Finally, $T_i$ is affine.  Therefore the equality of coordinate rings upgrades to an isomorphism of affine schemes $T_i \cong \widetilde{C}_i$.
+
+Conceptually, the proof separates the boundary problem into two parts:
+\[
+\text{regular codimension-$1$ geometry} \quad\longrightarrow\quad \text{Abhyankar collision exclusion},
+\]
+and
+\[
+\text{residual codimension-$\ge 2$ geometry} \quad\longrightarrow\quad \text{Hartogs rigidity plus affineness}.
+\]
+This is the mechanism that allows the argument to work over the normal locus rather than requiring the entire non-properness set to be smooth.
+
+\subsection{Relation to Prior Art}
+
+The present argument is closely related to Jelonek's 2022 proof in the smooth case, but the mechanism used to control the boundary is different.
+
+Both approaches pass to a finite completion supplied by Zariski's Main Theorem and reduce the problem to controlling the closure of the preimage of the non-properness set inside that finite completion.  In the smooth case, local structure over the smooth discriminant can be used to rule out boundary accumulation directly.
+
+Here we separate the problem into codimension $1$ and higher codimension. Over the regular locus, Abhyankar's regular-divisor theorem rules out a collision between an interior divisor and a boundary divisor.  Consequently, all remaining boundary points lie over $\Sing(Z)$.  Since $Z$ is normal, Serre's condition $R_1$ places this singular locus in codimension at least $2$. The remaining boundary is then removed by the height-one Hartogs property of the normalization together with affineness.
+
+Thus the argument does not require a global smoothness assumption on $S_F$. Instead, it proves the pointwise statement that
+\[
+F^{-1}(S_F^{\mathrm{nor}}) \longrightarrow S_F^{\mathrm{nor}}
+\]
+is finite, \'{e}tale, and surjective.
+
+We also emphasize that this statement is different from the stronger normality direction considered in the withdrawn Jelonek--\.{Z}o{\l}\k{a}dek preprint \cite{JelonekZoladek2020}.  We do not claim that a normal irreducible non-properness set is impossible.  Our conclusion is instead that no normal point of $S_F$ can be an omitted value.
+
+%=============================================================================
+\section{The Canonical Finite Completion and \texorpdfstring{$S_F = \pi(L_\infty)$}{SF = pi(L)}}
+%=============================================================================
+
+\subsection{The Dominance of Keller Maps}
+Let $F = (F_1, \dots, F_n): X = \A^n_\C \to Y = \A^n_\C$ be a polynomial map with $\det JF \in \C^\times$.
+
+\begin{proposition}\label{prop:keller-etale}
+$F$ is an \'{e}tale, quasi-finite, and dominant morphism.
+\end{proposition}
+\begin{proof}
+Consider the coordinate ring presentation
+\[
+B = \C[x_1, \dots, x_n] \cong \C[y_1, \dots, y_n][x_1, \dots, x_n] / (F_1(x)-y_1, \dots, F_n(x)-y_n).
+\]
+The Jacobian matrix of the relations with respect to $x_j$ is precisely $JF = (\partial F_i / \partial x_j)$, whose determinant is an invertible constant in $\C^\times$. Thus, this is a standard smooth presentation of relative dimension 0. Since \'{e}tale is equivalent to smooth of relative dimension 0 (Stacks Tag \href{https://stacks.math.columbia.edu/tag/02GH}{02GH}), $F$ is \'{e}tale.
+
+Every \'{e}tale morphism of schemes is an open map (Stacks Tag \href{https://stacks.math.columbia.edu/tag/02GH}{02GH}, Lemma 29.37.13). Since $X = \A^n_\C$ is non-empty, $F(X)$ is a non-empty Zariski open subset of the irreducible variety $Y = \A^n_\C$. In an irreducible variety, every non-empty open subset is dense. Hence $F$ is dominant, which implies that the pullback homomorphism
+\[
+F^*: \C[y_1, \dots, y_n] \hookrightarrow \C[x_1, \dots, x_n]
+\]
+is injective.
+\end{proof}
+
+\subsection{Identification of Relative Normalization and Field Normalization}
+Let $K = K(X)$ be the function field of $X = \A^n_\C$.
+
+\begin{lemma}[Canonical Finite Normalization Completion]\label{lem:finite-completion}
+Let $F: X = \A^n_\C \to Y = \A^n_\C$ be a dominant quasi-finite morphism. Let $\pi: V \to Y$ be the normalization of $Y$ in the finite field extension $K(Y) \subset K(X)$.
+Then there exists a canonical factorization
+\begin{equation}\label{eq:finite-completion}
+\begin{tikzcd}
+X = \A^n_\C \arrow[r, hook, "j"] \arrow[rd, "F"'] & V \arrow[d, "\pi"] \\
+& Y = \A^n_\C
+\end{tikzcd}
+\end{equation}
+where $j: X \hookrightarrow V$ is a quasi-compact dense open immersion and $\pi: V \to Y$ is a finite morphism.
+\end{lemma}
+\begin{proof}
+Let $Y^{\mathrm{rel}} \to Y$ be the relative normalization of $Y$ in the morphism $F: X \to Y$. Since $F$ is quasi-finite and separated, Zariski's Main Theorem (Stacks Tag \href{https://stacks.math.columbia.edu/tag/02LR}{02LR}, Lemma 37.43.2; EGA IV \cite{EGA4}, 8.12.6) yields a canonical factorization $X \xrightarrow{j} Y^{\mathrm{rel}} \to Y$ where $j$ is a quasi-compact open immersion. Since $Y = \A^n_\C$ is a Nagata scheme, $F$ is of finite type, and $X$ is reduced, the relative normalization $Y^{\mathrm{rel}} \to Y$ is finite (Stacks Tag \href{https://stacks.math.columbia.edu/tag/03GR}{03GR}, Lemma 29.54.15).
+
+We now prove that $Y^{\mathrm{rel}} \cong V$. It suffices to check this over affine open subsets of $Y$.
+Let $U = \Spec A \subset Y$ be any non-empty affine open subscheme, and let $W = F^{-1}(U)$. Since $F$ is dominant, $W \neq \emptyset$.
+The relative normalization over $U$ is given by $(Y^{\mathrm{rel}})|_U = \Spec A_{\mathrm{rel}}$, where $A_{\mathrm{rel}}$ is the integral closure of $A$ in $\Gamma(W, \cO_X)$ (Stacks Tag \href{https://stacks.math.columbia.edu/tag/035F}{035F}, Lemma 29.54.1).
+
+On the other hand, the field normalization over $U$ is $V|_U = \Spec \bar{A}$, where $\bar{A} = \{ c \in K : c \text{ is integral over } A\}$.
+Since $W$ is a non-empty open subscheme of the integral scheme $X$, we have a canonical injection $\Gamma(W, \cO_X) \hookrightarrow K(X) = K$. Thus $A_{\mathrm{rel}} \subseteq \bar{A}$.
+
+Conversely, let $c \in \bar{A}$. Then $c$ satisfies a monic equation $c^m + a_{m-1}c^{m-1} + \dots + a_0 = 0$ with $a_i \in A$.
+For any point $x \in W$, the canonical map $A \to \cO_{X,x}$ shows that $c$ is integral over the local ring $\cO_{X,x}$.
+Since $X = \A^n_\C$ is a normal variety, $\cO_{X,x}$ is an integrally closed domain with fraction field $\Frac \cO_{X,x} = K(X) = K$.
+Therefore, $c \in \cO_{X,x}$ for every $x \in W$.
+This implies $c$ is a regular function on $W$, so $c \in \Gamma(W, \cO_X)$. Since $c$ is integral over $A$, we obtain $c \in A_{\mathrm{rel}}$.
+
+Thus $A_{\mathrm{rel}} = \bar{A}$, which proves $Y^{\mathrm{rel}} \cong V$. Therefore, $j: X \hookrightarrow V$ is a quasi-compact open immersion and $\pi: V \to Y$ is finite.
+\end{proof}
+
+We denote the \emph{boundary at infinity} by:
+\[
+L_\infty := V \setminus X.
+\]
+
+\subsection{Exact Identity \texorpdfstring{$S_F = \pi(L_\infty)$}{SF = pi(L)}}
+We define the non-properness locus $S_F \subset Y$:
+\begin{definition}\label{def:nonproperness}
+The underlying topological set of the non-properness locus is defined as:
+\[
+|S_F| := \left\{ y \in Y : \nexists \text{ Zariski open } U \ni y \text{ such that } F^{-1}(U) \to U \text{ is proper} \right\}.
+\]
+\end{definition}
+
+\begin{proposition}\label{prop:boundary-image}
+Set-theoretically, $|S_F| = \pi(L_\infty)$. Consequently, $|S_F|$ is a closed algebraic subset of $Y$, which we endow with its reduced subscheme structure $S_F$. Furthermore, $\Miss(F) \subseteq S_F$.
+\end{proposition}
+\begin{proof}
+($\subseteq$): Suppose $y \notin \pi(L_\infty)$. Since $\pi$ is finite, $\pi(L_\infty)$ is a closed subset of $Y$. Thus, there exists a Zariski open neighborhood $U \ni y$ such that $U \cap \pi(L_\infty) = \emptyset$. This implies $\pi^{-1}(U) \subset X$. Therefore, $F^{-1}(U) = \pi^{-1}(U) \to U$ is finite, hence proper. Thus $y \notin S_F$, which shows $S_F \subseteq \pi(L_\infty)$.
+
+($\supseteq$): Suppose $y \in \pi(L_\infty)$, and assume for contradiction that $y \notin S_F$. Then there exists an affine open neighborhood $U = \Spec A \ni y$ such that $F^{-1}(U) \to U$ is proper. Since $F$ is quasi-finite, the restriction $F^{-1}(U) \to U$ is proper and quasi-finite, hence finite (Stacks Tag \href{https://stacks.math.columbia.edu/tag/02LS}{02LS}, Lemma 37.44.1). Thus $F^{-1}(U) = \Spec B$, where $B$ is a finite $A$-algebra.
+
+Since $F$ is dominant, $F^{-1}(U)$ is a non-empty open subvariety of $X = \A^n_\C$. Hence $B$ is an integral domain, normal, and has quotient field $\Frac B = K(X) = K$. Let $\bar{A}$ denote the integral closure of $A$ in $K$ (so $\pi^{-1}(U) = \Spec \bar{A}$). Because $B/A$ is finite, $B \subseteq \bar{A}$. Conversely, let $c \in \bar{A}$. Then $c$ is integral over $A$, and hence integral over $B$. Since $B$ is normal (integrally closed in $K$), $c \in B$. Thus $B = \bar{A}$, which implies
+\[
+F^{-1}(U) = \pi^{-1}(U).
+\]
+However, $y \in \pi(L_\infty)$ implies that $\pi^{-1}(U)$ contains a point $a \in L_\infty = V \setminus X$, contradicting $F^{-1}(U) \subset X$. Thus $y \in S_F$, proving $\pi(L_\infty) \subseteq S_F$.
+
+Finally, to see $\Miss(F) \subseteq S_F$: since $\pi: V \to Y$ is finite and dominant, $\pi$ is surjective. If $y \notin S_F = \pi(L_\infty)$, then $\pi^{-1}(y) \neq \emptyset$ and $\pi^{-1}(y) \cap L_\infty = \emptyset$, which implies $\pi^{-1}(y) \subset X$. Since $\pi$ is finite and the base point $y$ is a closed $\C$-point, every point in the fiber $\pi^{-1}(y)$ has residue field finite over $\C$, hence equal to $\C$ by the Nullstellensatz. Thus $F^{-1}(y) = \pi^{-1}(y) \neq \emptyset$, so $y \in F(X)$. Hence $\Miss(F) \subseteq S_F$.
+\end{proof}
+
+\begin{proposition}\label{prop:pure-codim-one}
+$S_F = \emptyset$ or $S_F$ is a pure codimension-$1$ reduced hypersurface in $Y = \A^n_\C$.
+\end{proposition}
+\begin{proof}
+$X = \A^n_\C$ is a dense affine open subscheme of the separated Noetherian scheme $V$. By Stacks Tag \href{https://stacks.math.columbia.edu/tag/0BCV}{0BCV} (Lemma 31.16.5), the complement of a dense affine open subscheme has all irreducible components of codimension 1; that is, for every generic point $\eta_E$ of an irreducible component $E \subset L_\infty$, $\dim \cO_{V, \eta_E} = 1 \implies \dim E = n-1$.
+
+Since $\pi: V \to Y$ is finite, $\dim \pi(E) = \dim E = n-1$. If $L_\infty = \emptyset$, then $S_F = \emptyset$. Otherwise, by Proposition~\ref{prop:boundary-image}, $S_F = \pi(L_\infty) = \bigcup \pi(E_j)$ is a finite union of irreducible closed subvarieties of dimension $n-1$, hence a pure codimension-1 hypersurface in $\A^n_\C$.
+\end{proof}
+
+%=============================================================================
+\section{Geometry over the Normal Locus}
+%=============================================================================
+
+Fix a point $y \in S_F^{\mathrm{nor}}$.
+
+\begin{lemma}\label{lem:normal-neighborhood}
+There exists a principal affine open neighborhood $U = D(g) \subset Y$ containing $y$ such that:
+\begin{enumerate}[(1)]
+\item $Z := S_F \cap U$ is normal, irreducible, and affine;
+\item $X_U := F^{-1}(U) = D(g \circ F) \subset \A^n_\C$ is an affine variety;
+\item $T := F^{-1}(Z) \subset X_U$ is a normal affine variety, and $T \to Z$ is an \'{e}tale morphism.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Since $S_F$ is a reduced Noetherian scheme, the irreducible components of $S_F$ passing through $y$ correspond to the minimal prime ideals of the local ring $\cO_{S_F, y}$.
+Since $\cO_{S_F, y}$ is a normal local ring, it is an integral domain, so exactly one irreducible component $S_0 \subset S_F$ passes through $y$.
+
+Let $S' = \bigcup_{S_j \neq S_0} S_j$ be the union of all other irreducible components of $S_F$. Then $S'$ is closed in $S_F$ and $y \notin S'$.
+The normal locus $S_F^{\mathrm{nor}}$ is open in $S_F$. Indeed, since $S_F$ is a reduced scheme of finite type over $\C$, its normalization
+\[
+\nu: S_F^\nu \longrightarrow S_F
+\]
+is finite.  Let
+\[
+\mathcal Q := \nu_* \cO_{S_F^\nu} / \cO_{S_F}.
+\]
+Then $\mathcal Q$ is coherent. For a point $x \in S_F$, one has $\mathcal Q_x = 0$ if and only if the normalization is an isomorphism in a neighborhood of $x$, equivalently if and only if $\cO_{S_F, x}$ is a normal local ring. Hence
+\[
+S_F^{\mathrm{nor}} = S_F \setminus \Supp(\mathcal Q),
+\]
+which is open because $\Supp(\mathcal Q)$ is closed.
+
+Therefore, $\Omega := S_F^{\mathrm{nor}} \setminus S'$ is an open neighborhood of $y$ in $S_F$ with $\Omega \subset S_0$, so $\Omega$ is normal and irreducible.
+
+Since $S_F \hookrightarrow Y$ is a closed immersion, there exists an open neighborhood $U_0 \subset Y$ containing $y$ such that $S_F \cap U_0 \subseteq \Omega$.
+Since principal open subsets form a topological basis for $Y = \A^n_\C$, we can choose a principal affine open neighborhood $U = D(g) \subseteq U_0$ containing $y$.
+Then $Z := S_F \cap U$ is normal, irreducible, and affine.
+
+Since $U = D(g)$ is a principal open subset of $\A^n_\C$, $X_U = F^{-1}(U) = D(g \circ F)$ is a principal open affine subvariety of $\A^n_\C$. The preimage $T = F^{-1}(Z) = X_U \times_U Z$ is a closed subscheme of the affine variety $X_U$, hence $T$ is affine.
+
+Furthermore, $F: X_U \to U$ is \'{e}tale, so the base change $T = X_U \times_U Z \to Z$ is \'{e}tale (Stacks Tag \href{https://stacks.math.columbia.edu/tag/02GH}{02GH}). Since $Z$ is normal and \'{e}tale extensions preserve normality (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0336}{0336}, Lemma 10.163.9), $T$ is normal.
+\end{proof}
+
+Let $V_U := \pi^{-1}(U)$. Since $V$ is affine and $\pi$ is finite, $V_U$ is a normal affine variety.
+We define the reduced closure of $T$ in $V_U$:
+\begin{equation}\label{eq:closure-C}
+C := \overline{T}^{V_U}_{\mathrm{red}} \subset V_U.
+\end{equation}
+
+\begin{lemma}\label{lem:closure-factorization}
+The morphism $C \to U$ scheme-theoretically factors through $Z$, inducing a finite morphism $p: C \to Z$, and $T = C \cap X_U$ as schemes.
+\end{lemma}
+\begin{proof}
+Since $T \subseteq \pi^{-1}(Z)$ and $\pi^{-1}(Z)$ is closed in $V_U$, the topological closure satisfies $|C| \subseteq |\pi^{-1}(Z)|$.
+Let $\mathcal{I}_Z \subseteq \cO_U$ be the ideal sheaf of $Z$. The pullback of $\mathcal{I}_Z$ to $C$ is contained in every prime ideal of $C$. Since $C$ is reduced by definition, its nilradical is zero, so $\mathcal{I}_Z \cO_C = 0$. Thus $C \to U$ factors through $Z$, giving $p: C \to Z$. Since $\pi$ is finite, $p$ is finite.
+
+For the scheme equality $T = C \cap X_U$: topologically, $|C \cap X_U| = \overline{|T|}^{V_U} \cap |X_U| = \overline{|T|}^{X_U} = |T|$ because $T$ is closed in $X_U$. Since both $T$ and $C \cap X_U$ are reduced subschemes of $X_U$ with the same underlying topological space, they are identical as schemes. Thus $C \setminus T = C \cap (V_U \setminus X_U)$.
+\end{proof}
+
+%=============================================================================
+\section{The Boundary Collision Lemma}
+%=============================================================================
+
+\begin{theorem}[Boundary Collision Lemma]\label{thm:boundary-collision}
+Let $a \in C \setminus T$ be a boundary point of $C$, and let $b = p(a) \in Z$. Then $b$ is a singular point of $Z$:
+\[
+p(C \setminus T) \subseteq \Sing(Z).
+\]
+\end{theorem}
+
+\begin{proof}
+Assume for contradiction that $b = p(a) \in Z_{\mathrm{reg}}$ is a smooth point of $Z$.
+
+\medskip
+\noindent\textbf{Step 1: Constructing the boundary prime divisor $E$.}
+Since $a \in C \setminus T$ and $T = C \cap X_U$, we have $a \notin X_U$, so $a \in V_U \setminus X_U$.
+The subvariety $X_U$ is a dense affine open subscheme of the separated Noetherian scheme $V_U$. By Stacks Tag \href{https://stacks.math.columbia.edu/tag/0BCV}{0BCV} (Lemma 31.16.5), every irreducible component of $V_U \setminus X_U$ passing through $a$ is a prime divisor in $V_U$. Let $E \subset V_U \setminus X_U$ be an irreducible component containing $a$. Then:
+\[
+\dim E = n-1, \qquad E \subset L_\infty \cap V_U, \qquad a \in E.
+\]
+
+\medskip
+\noindent\textbf{Step 2: Constructing the interior closure prime divisor $R$.}
+Since $a \in C = \overline{T}$, there exists an irreducible component $R \subseteq C$ containing $a$.
+Since $T \subset C$ is a dense open subscheme, $R \cap T$ is a non-empty dense open subset of $R$, hence is irreducible.
+We claim that $R \cap T$ is an irreducible component of $T$. Indeed, if $R \cap T \subsetneq Q \subseteq T$ for some irreducible closed subset $Q \subseteq T$, then taking closures in $C$ gives $R = \overline{R \cap T}^C \subseteq \overline{Q}^C \subseteq C$, which by maximality of $R$ implies $\overline{Q}^C = R$, so $Q \subseteq R \cap T$, a contradiction.
+
+Since $T$ is normal and Noetherian, its irreducible components are pairwise disjoint open-and-closed normal integral schemes (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0357}{0357}, Lemma 28.7.5). The restriction $R \cap T \to Z$ is \'{e}tale, so its image is a non-empty open subset of the irreducible variety $Z$, hence is dense. Thus $R \cap T \to Z$ is dominant and quasi-finite, which induces a finite algebraic field extension $K(Z) \subseteq K(R \cap T)$. Therefore:
+\[
+\dim R = \dim(R \cap T) = \dim Z = n-1 \implies \codim_{V_U} R = 1.
+\]
+Crucially, $R \cap X_U \neq \emptyset$ (since $R \cap T \neq \emptyset$), whereas $E \subset V_U \setminus X_U$ satisfies $E \cap X_U = \emptyset$. Therefore:
+\[
+R \neq E.
+\]
+Since $C \subseteq \pi^{-1}(Z)$ and $\pi(E) \subseteq \pi(L_\infty \cap V_U) \subseteq Z$, both $E$ and $R$ are contained in $\pi^{-1}(Z)$.
+
+\medskip
+\noindent\textbf{Step 3: Verification of Abhyankar Hypotheses.}
+Since $b \in Z_{\mathrm{reg}}$, we may shrink $U$ to a smaller affine open neighborhood $W = \Spec A \subset U$ containing $b$ such that $D := Z \cap W = V(h)$ is a regular effective Cartier divisor in the regular scheme $W$, and $S_F \cap W = D$.
+
+Let $V_W := \pi^{-1}(W)$ and let $E_W := E \cap V_W$, $R_W := R \cap V_W$. Since $a \in E \cap R \cap V_W$, $E_W$ and $R_W$ are non-empty irreducible prime divisors of $V_W$. If $E_W = R_W$, then taking closures in $V_U$ yields $E = \overline{E_W}^{V_U} = \overline{R_W}^{V_U} = R$, contradicting $E \neq R$. Thus $E_W \neq R_W$.
+
+Moreover, since both $E$ and $R$ are contained in $\pi^{-1}(Z)$ and $V_W = \pi^{-1}(W)$, we have
+\[
+E_W, R_W \subseteq \pi^{-1}(Z) \cap \pi^{-1}(W) = \pi^{-1}(Z \cap W) = \pi^{-1}(D).
+\]
+Hence, setting $D' := (\pi^{-1}D)_{\mathrm{red}}$, both $E_W$ and $R_W$ are contained in the underlying topological space of $D'$.
+
+Let $W^\circ := W \setminus D$. Then $W^\circ \cap S_F = \emptyset$.
+By Proposition~\ref{prop:boundary-image}, $S_F = \pi(L_\infty)$, which implies $\pi^{-1}(W^\circ) \cap L_\infty = \emptyset$. Therefore,
+\[
+\pi^{-1}(W^\circ) = F^{-1}(W^\circ).
+\]
+Since $F$ is \'{e}tale and $\pi$ is finite, the restriction
+\[
+Y^\circ := \pi^{-1}(W^\circ) \longrightarrow W^\circ
+\]
+is a finite \'{e}tale covering.
+
+The scheme $V_W = \Spec B$ is the normalization of $W$ in $K(X) = K(Y^\circ)$. Since $Y^\circ = \Spec B_h$, the integral closure of $A$ in $B_h$ is precisely $B$ (as $B$ is integrally closed in $K(X)$). Thus $V_W = \operatorname{Norm}_W(Y^\circ)$.
+
+Since the residue field at every generic point of $D$ has characteristic 0, the corresponding finite separable extension of discretely valued fields is tamely ramified (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0BSE}{0BSE} and Tag \href{https://stacks.math.columbia.edu/tag/09E9}{09E9}, Definition 15.113.7).
+
+We now invoke \textbf{Stacks Lemma 58.31.6 (Tag \href{https://stacks.math.columbia.edu/tag/0EYH}{0EYH})}:
+\begin{quote}
+\emph{Let $W$ be a regular scheme, $D \subset W$ a regular effective Cartier divisor, and $Y^\circ \to W \setminus D$ a finite \'{e}tale morphism tamely ramified along $D$. Let $V_W = \operatorname{Norm}_W(Y^\circ)$. Then $D' := (\pi^{-1}D)_{\mathrm{red}}$ is an effective Cartier divisor on $V_W$, and $D'$ is a \textbf{regular scheme}.}
+\end{quote}
+
+In particular, for our point $a \in D'$, the local ring $\cO_{D', a}$ is a \textbf{regular local ring}, and therefore an \textbf{integral domain}.
+
+\medskip
+\noindent\textbf{Step 4: Minimal Primes and the Contradiction.}
+By the preceding paragraph, $E_W, R_W \subseteq |D'|$. Both are irreducible codimension-1 closed subsets of $V_W$.
+Since $D'$ is an effective Cartier divisor on the $n$-dimensional scheme $V_W$, every irreducible component of $D'$ has dimension $n-1$.
+Specifically, $E_W \subseteq D_E \subseteq D'$ for some irreducible component $D_E$ of $D'$. Since $\dim E_W = \dim D_E = n-1$, we have $E_W = D_E$.
+Similarly, $R_W = D_R$ for an irreducible component $D_R$ of $D'$.
+Since $E_W \neq R_W$, $E_W$ and $R_W$ are two distinct irreducible components of the scheme $D'$.
+
+Since $a \in E_W \cap R_W$, the point $a$ lies on two distinct irreducible components of $D'$. Consequently, the local ring $\cO_{D', a}$ has at least two distinct minimal prime ideals:
+\[
+\fp_E \neq \fp_R \subset \cO_{D', a}.
+\]
+Thus, $\cO_{D', a}$ has non-zero zero-divisors, and is \emph{not} an integral domain.
+
+This directly contradicts Step 3, which established that $\cO_{D', a}$ is a regular local ring (hence a domain).
+
+\medskip
+We conclude that the assumption $b \in Z_{\mathrm{reg}}$ is false. Therefore, $b \in \Sing(Z)$, completing the proof.
+\end{proof}
+
+%=============================================================================
+\section{Algebraic Hartogs Removal of the Boundary}
+%=============================================================================
+
+\begin{proposition}\label{prop:boundary-codim-two}
+Let $\nu: \widetilde{C} \to C$ be the normalization of $C$. Then $\nu$ is finite, $T$ embeds as a dense open subscheme $T \subset \widetilde{C}$, and the boundary $B := \widetilde{C} \setminus T$ satisfies:
+\[
+\codim_{\widetilde{C}} B \ge 2.
+\]
+\end{proposition}
+\begin{proof}
+Since $C$ is a reduced affine scheme of finite type over $\C$, its normalization $\nu: \widetilde{C} \to C$ is a finite morphism (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0BXQ}{0BXQ}). Since $T \subset C$ is normal (Lemma~\ref{lem:normal-neighborhood}), $\nu$ is an isomorphism over $T$ (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0H7D}{0H7D}), so we identify $T$ with a dense open subscheme $T \subset \widetilde{C}$.
+
+Let $g = p \circ \nu: \widetilde{C} \to Z$ be the composite finite morphism.
+If $\tilde{a} \in B = \widetilde{C} \setminus T$, then $\nu(\tilde{a}) \in C \setminus T$. By Theorem~\ref{thm:boundary-collision},
+\[
+g(B) \subseteq \Sing(Z).
+\]
+
+Since $\widetilde{C}$ is a normal Noetherian scheme, its irreducible components $\widetilde{C} = \coprod_i \widetilde{C}_i$ are pairwise disjoint and open-and-closed (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0357}{0357}, Lemma 28.7.5).
+Since $T$ is dense in $C$, it meets every irreducible component of $C$. Under the finite normalization morphism $\nu: \widetilde{C} \to C$, each irreducible component of $\widetilde{C}$ dominates an irreducible component of $C$. Hence for each component $\widetilde{C}_i$, $T_i := T \cap \widetilde{C}_i$ is a non-empty dense open subset of $\widetilde{C}_i$. Since $T_i \to Z$ is \'{e}tale and $Z$ is irreducible, $g(T_i)$ is dense in $Z$. Since $g$ is finite, $g(\widetilde{C}_i) = Z$. Thus each $\widetilde{C}_i \to Z$ is finite dominant of dimension $\dim Z = n-1$.
+
+Because $Z$ is normal, Serre's criterion $R_1$ (Stacks Tag \href{https://stacks.math.columbia.edu/tag/031S}{031S}) guarantees that all codimension-1 points of $Z$ are regular.
+If $d = \dim Z \ge 2$, then $\codim_Z \Sing(Z) \ge 2 \implies \dim \Sing(Z) \le d - 2$.
+For any irreducible component $B_0 \subseteq B \cap \widetilde{C}_i$, the restriction $B_0 \to g(B_0)$ is finite dominant, so $\dim B_0 = \dim g(B_0) \le \dim \Sing(Z) \le d - 2$.
+Therefore, every irreducible component $B_0$ satisfies $\codim_{\widetilde{C}_i} B_0 = d - \dim B_0 \ge 2$, so $\codim_{\widetilde{C}_i}(B \cap \widetilde{C}_i) \ge 2$.
+If $d \le 1$, then normality implies $\Sing(Z) = \emptyset$, so $B = \emptyset$.
+\end{proof}
+
+\begin{lemma}[Affine Hartogs Rigidity]\label{lem:affine-hartogs}
+Let $X = \Spec A$ be an integral normal Noetherian affine scheme. Let $j: U \hookrightarrow X$ be a dense affine open subscheme such that $\codim_X(X \setminus U) \ge 2$.
+Then $U = X$.
+\end{lemma}
+\begin{proof}
+Every regular function $s \in \Gamma(U, \cO_U)$ defines a rational function in the fraction field $K = \Frac A$.
+Since $\codim_X(X \setminus U) \ge 2$, every height-one prime ideal $\fp \subset A$ corresponds to a codimension-1 point in $U$.
+Thus $s \in A_\fp$ for all $\operatorname{ht} \fp = 1$.
+By the fundamental property of normal Noetherian domains (Stacks Tag \href{https://stacks.math.columbia.edu/tag/0AVB}{0AVB}, Lemma 15.24.18):
+\[
+A = \bigcap_{\operatorname{ht} \fp = 1} A_\fp \subset K.
+\]
+Thus $s \in A$, which proves $\Gamma(U, \cO_U) = A$.
+
+Since $U = \Spec B$ is affine, the open immersion $j: U \hookrightarrow X$ corresponds to the ring homomorphism $A \to B = \Gamma(U, \cO_U)$, which is an isomorphism. By the anti-equivalence of affine schemes and commutative rings (Stacks Tag \href{https://stacks.math.columbia.edu/tag/01HX}{01HX}), $j: U \xrightarrow{\sim} X$ is an isomorphism of schemes. Thus $U = X$.
+\end{proof}
+
+\begin{theorem}\label{thm:closure-equality}
+$T = C$. That is, $T$ is closed in $V_U$, and the restricted morphism $T \to Z$ is finite and \'{e}tale.
+\end{theorem}
+\begin{proof}
+Since $\widetilde{C} \to Z$ is finite and $Z$ is affine, $\widetilde{C}$ is affine. Each disjoint component $\widetilde{C}_i$ is a normal Noetherian affine domain.
+The scheme $T$ is affine (Lemma~\ref{lem:normal-neighborhood}), and $T_i = T \cap \widetilde{C}_i$ is an open-and-closed subscheme of the affine scheme $T$, hence $T_i$ is affine. (The affineness of $T_i$ is essential here.)
+
+By Proposition~\ref{prop:boundary-codim-two}, $\codim_{\widetilde{C}_i}(\widetilde{C}_i \setminus T_i) \ge 2$. Applying Lemma~\ref{lem:affine-hartogs} to $T_i \hookrightarrow \widetilde{C}_i$, we obtain $T_i = \widetilde{C}_i$ for every component, so:
+\[
+T = \widetilde{C}.
+\]
+
+The normalization morphism $\nu: \widetilde{C} \to C$ is surjective and restricts to the open immersion $T \hookrightarrow C$.
+Since $T = \widetilde{C}$, the image of $T \hookrightarrow C$ is the entire underlying space $|C|$.
+An open immersion whose image is the entire topological space is an isomorphism. Thus:
+\[
+C = T.
+\]
+Therefore, $T$ is closed in $V_U$. Since $\pi: V_U \to U$ is finite, $\pi|_T: T \to Z$ is finite. Since $T \to Z$ was already \'{e}tale (Lemma~\ref{lem:normal-neighborhood}), $T \to Z$ is finite and \'{e}tale.
+\end{proof}
+
+%=============================================================================
+\section{Surjectivity and the Conductor Principle}
+%=============================================================================
+
+\begin{proposition}[Non-Emptiness via Dominance]\label{prop:nonempty}
+Let $S_i$ be the irreducible component of $S_F$ containing $Z$. Then $T = F^{-1}(Z) \neq \emptyset$.
+\end{proposition}
+\begin{proof}
+Let $S_i = V(h)$, where $h \in \C[y_1, \dots, y_n]$ is an irreducible polynomial defining the hypersurface $S_i$. 
+
+By Proposition~\ref{prop:keller-etale}, $F$ is dominant, so $F^*: \C[Y] \hookrightarrow \C[X]$ is injective. Therefore, $h \circ F \in \C[x_1, \dots, x_n]$ cannot be a constant. If $h \circ F = c \in \C$, then $F^*(h-c) = 0 \implies h = c$, contradicting that $h=0$ defines a hypersurface. 
+
+Since $\Gamma(\A^n, \cO)^\times = \C^\times$, $h \circ F$ is a non-unit, so $F^{-1}(S_i) = V(h \circ F) \neq \emptyset$.
+
+The restriction $F^{-1}(S_i) \to S_i$ is the base change of the \'{e}tale morphism $F$, hence is \'{e}tale. By Stacks Tag \href{https://stacks.math.columbia.edu/tag/02GH}{02GH} (Lemma 29.37.13), \'{e}tale morphisms are open, so the image
+\[
+I_i := F(F^{-1}(S_i)) \subseteq S_i
+\]
+is a non-empty open subset of $S_i$. Since $S_i$ is irreducible, $I_i$ is dense in $S_i$.
+
+Since $Z \subseteq S_i$ is a non-empty open subset, the dense open set $I_i$ must intersect $Z$:
+\[
+I_i \cap Z \neq \emptyset \implies T = F^{-1}(Z) \neq \emptyset. \qedhere
+\]
+\end{proof}
+
+\begin{theorem}[Surjectivity over $Z$]\label{thm:local-surjectivity}
+The morphism $F^{-1}(Z) \to Z$ is surjective:
+\[
+F(F^{-1}(Z)) = Z.
+\]
+\end{theorem}
+\begin{proof}
+By Theorem~\ref{thm:closure-equality}, $T = F^{-1}(Z) \to Z$ is finite and \'{e}tale.
+\begin{enumerate}[(1)]
+\item A finite morphism is universally closed, so $F(T)$ is a closed subset of $Z$;
+\item An \'{e}tale morphism is an open map, so $F(T)$ is an open subset of $Z$;
+\item By Proposition~\ref{prop:nonempty}, $F(T) \neq \emptyset$.
+\end{enumerate}
+Since $Z$ is normal and irreducible, it is connected. In a connected topological space, the only non-empty clopen subset is the entire space. Therefore:
+\[
+F(T) = Z. \qedhere
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:normal-locus}]
+Every point $y \in S_F^{\mathrm{nor}}$ has an affine open neighborhood $Z \subset S_F^{\mathrm{nor}}$ satisfying Lemma~\ref{lem:normal-neighborhood}. By Theorem~\ref{thm:closure-equality} and Theorem~\ref{thm:local-surjectivity}, $F^{-1}(Z) \to Z$ is finite, \'{e}tale, and surjective. Finiteness and \'{e}taleness are Zariski-local on the target.  Moreover, surjectivity follows pointwise: every point of $S_F^{\mathrm{nor}}$ lies in one of the open neighborhoods $Z$ over which the restricted morphism is surjective. Therefore the global restriction
+\[
+F^{-1}(S_F^{\mathrm{nor}}) \longrightarrow S_F^{\mathrm{nor}}
+\]
+is finite, \'{e}tale, and surjective.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:conductor}]
+Let $y \in \Miss(F) = \A^n_\C \setminus F(\A^n_\C)$. By Proposition~\ref{prop:boundary-image}, $\Miss(F) \subseteq S_F$, so $y \in S_F$. 
+By Theorem~\ref{thm:normal-locus}, every point of $S_F^{\mathrm{nor}}$ has at least one preimage in $\A^n_\C$. Since $y$ has no preimage, $y \notin S_F^{\mathrm{nor}}$. Therefore:
+\[
+y \in S_F \setminus S_F^{\mathrm{nor}} = \NonNormal(S_F).
+\]
+
+Let $\nu: S_F^\nu \to S_F$ be the normalization. The coherent sheaf quotient $\cQ = \nu_* \cO_{S_F^\nu} / \cO_{S_F}$ on stalks satisfies:
+\[
+0 \longrightarrow \cO_{S_F, y} \longrightarrow (\nu_* \cO_{S_F^\nu})_y \longrightarrow \cQ_y \longrightarrow 0.
+\]
+Since $\mathcal Q$ is coherent, $\mathcal Q_y=0$ if and only if there exists an open neighborhood $U\ni y$ such that $\mathcal Q|_U=0$.  On such a neighborhood,
+\[
+\mathcal O_U \cong (\nu_*\mathcal O_{S_F^\nu})|_U \cong (\nu|_{\nu^{-1}(U)})_* \mathcal O_{\nu^{-1}(U)}.
+\]
+The restriction $\nu^{-1}(U) \to U$ is finite, and a finite morphism is the relative spectrum of its pushforward algebra.  Hence the displayed isomorphism of $\mathcal O_U$-algebras implies that $\nu^{-1}(U)\to U$ is an isomorphism.
+
+Since normalization commutes with restriction to open subsets, this is equivalent to $U$ being normal.  Thus
+\[
+\mathcal Q_y=0 \quad\Longleftrightarrow\quad \mathcal O_{S_F,y}\text{ is normal}.
+\]
+Consequently,
+\[
+\Supp(\mathcal Q)=\NonNormal(S_F).
+\]
+By Stacks Tag \href{https://stacks.math.columbia.edu/tag/00L2}{00L2} (Lemma 10.40.5), for any coherent module $\cQ$ on a Noetherian scheme, $\Supp(\cQ) = V(\Ann(\cQ)) = V(\fc_{S_F^\nu / S_F})$. Thus $\NonNormal(S_F) = V(\fc_{S_F^\nu / S_F})$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:normal-surjectivity}]
+If $S_F$ is globally normal, $S_F^{\mathrm{nor}} = S_F$. By Theorem~\ref{thm:normal-locus}, $F^{-1}(S_F) \to S_F$ is surjective, so $S_F \subseteq F(\A^n_\C)$. By Proposition~\ref{prop:boundary-image}, every point outside $S_F$ has a non-empty fiber. Hence $F(\A^n_\C) = \A^n_\C$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:defect-rigidity}]
+Let $W \subseteq S_F^{\mathrm{nor}}$ be a connected component. By Theorem~\ref{thm:normal-locus}, $F^{-1}(W) \to W$ is a finite \'{e}tale covering of non-empty connected base. The degree of a finite \'{e}tale cover over a connected base is constant: there exists $r_W \ge 1$ such that $\#F^{-1}(y) = r_W$ for all $y \in W$.
+\end{proof}
+
+%=============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{BassConnellWright1982}
+H.~Bass, E.~H.~Connell, and D.~Wright,
+\emph{The Jacobian conjecture: reduction of degree and formal expansion of the inverse},
+Bull. Amer. Math. Soc. (N.S.) \textbf{7} (1982), no.~2, 287--330.
+
+\bibitem{BiaRosen1962}
+A.~Bia{\l}ynicki-Birula and M.~Rosenlicht,
+\emph{Injective morphisms of real algebraic varieties},
+Proc. Amer. Math. Soc. \textbf{13} (1962), 200--203.
+
+\bibitem{EGA4}
+A.~Grothendieck,
+\emph{\'{E}l\'{e}ments de g\'{e}om\'{e}trie alg\'{e}brique. IV. \'{E}tude locale des sch\'{e}mas et des morphismes de sch\'{e}mas. II},
+Publ. Math. IH\'{E}S \textbf{24} (1965), 5--231.
+
+\bibitem{Jelonek1993}
+Z.~Jelonek,
+\emph{The set of points at which a polynomial map is not proper},
+Ann. Polon. Math. \textbf{58} (1993), no.~3, 259--266.
+
+\bibitem{Jelonek1999}
+Z.~Jelonek,
+\emph{Testing sets for properness of polynomial mappings},
+Math. Ann. \textbf{315} (1999), no.~1, 1--35.
+
+\bibitem{Jelonek2022}
+Z.~Jelonek,
+\emph{A note on the Jacobian Conjecture},
+Colloq. Math. \textbf{170} (2022), no.~1, 85--90.
+
+\bibitem{JelonekLason2019}
+Z.~Jelonek and M.~Laso\'{n},
+\emph{Quantitative properties of the non-properness set of polynomial maps},
+Adv. Math. \textbf{343} (2019), 743--766.
+
+\bibitem{JelonekZoladek2020}
+Z.~Jelonek and H.~\.{Z}o{\l}\k{a}dek,
+\emph{A note on the Jacobian Conjecture},
+arXiv:2004.05003 (2020, withdrawn).
+
+\bibitem{Keller1939}
+O.-H.~Keller,
+\emph{Ganze Cremona-Transformationen},
+Monatsh. Math. Phys. \textbf{47} (1939), 299--306.
+
+\bibitem{StacksProject}
+The Stacks Project Authors,
+\emph{The Stacks Project},
+\url{https://stacks.math.columbia.edu} (2026).
+Tags cited: 
+\href{https://stacks.math.columbia.edu/tag/02LR}{02LR} (Lemma 37.43.2),
+\href{https://stacks.math.columbia.edu/tag/03GR}{03GR} (Lemma 29.54.15),
+\href{https://stacks.math.columbia.edu/tag/0BXQ}{0BXQ} (Section 33.27),
+\href{https://stacks.math.columbia.edu/tag/035F}{035F} (Lemma 29.54.1),
+\href{https://stacks.math.columbia.edu/tag/02LS}{02LS} (Lemma 37.44.1),
+\href{https://stacks.math.columbia.edu/tag/0BCV}{0BCV} (Lemma 31.16.5),
+\href{https://stacks.math.columbia.edu/tag/02GH}{02GH} (Section 29.37),
+\href{https://stacks.math.columbia.edu/tag/0336}{0336} (Lemma 10.163.9),
+\href{https://stacks.math.columbia.edu/tag/0EYH}{0EYH} (Lemma 58.31.6),
+\href{https://stacks.math.columbia.edu/tag/0BSE}{0BSE} (Section 58.31),
+\href{https://stacks.math.columbia.edu/tag/09E9}{09E9} (Definition 15.113.7),
+\href{https://stacks.math.columbia.edu/tag/0357}{0357} (Lemma 28.7.5),
+\href{https://stacks.math.columbia.edu/tag/031S}{031S} (Lemma 10.157.4),
+\href{https://stacks.math.columbia.edu/tag/0AVB}{0AVB} (Lemma 15.24.18),
+\href{https://stacks.math.columbia.edu/tag/01HX}{01HX} (Section 26.6),
+\href{https://stacks.math.columbia.edu/tag/0H7D}{0H7D} (Lemma 29.55.9),
+\href{https://stacks.math.columbia.edu/tag/00L2}{00L2} (Lemma 10.40.5).
+
+\end{thebibliography}
+
+\end{document}

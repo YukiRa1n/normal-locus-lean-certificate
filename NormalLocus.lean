@@ -1,0 +1,15 @@
+import NormalLocus.FiniteEtale
+import NormalLocus.Polynomial
+import NormalLocus.CurveLocalAlgebra
+import NormalLocus.NonProper
+import NormalLocus.NormalizationAlgebra
+import NormalLocus.Completion
+import NormalLocus.KellerEtale
+import NormalLocus.FiniteNormalization
+import NormalLocus.CanonicalFinite
+import NormalLocus.BoundaryImage
+import NormalLocus.Statement
+import NormalLocus.CanonicalNormal
+import NormalLocus.KummerChart
+import NormalLocus.NormalHeightOne
+import NormalLocus.ConditionalNL
