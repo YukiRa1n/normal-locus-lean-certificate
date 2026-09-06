@@ -48,7 +48,41 @@ NormalLocus.normal_locus_finite_etale_conditional :
 而上述 `theorem` 提供已通过检查的证明项；[完整证明体](docs/target.md#完整组合证明)可直接查看。
 外部结果本身及其引用转换是本证明公开保留的数学依据，尚未全部在本仓库内部证明。
 
-## 2. 按 Lean 社区的五项准则核验
+## 2. 核心程序验收：无漏证、无额外公理、内核检查通过
+
+本工程对主定理及其传递依赖执行了以下检查，**结果均通过**：
+
+| 程序验收项 | 实际检查内容 |
+|---|---|
+| **无 `sorry` / `admit` 漏证** | 检查证明的传递公理依赖，确认没有 `sorryAx`；覆盖被调用定理中的漏证。 |
+| **无额外公理** | 公理白名单仅为 `propext`、`Classical.choice`、`Quot.sound`；任何其他公理都会使验收失败。 |
+| **不依赖 native 求值证明公理** | 同一白名单排除了本版本的 `Lean.trustCompiler`；证明依赖闭包还排除了 unsafe / partial 声明。 |
+| **完整证明经过内核检查** | 工程构建成功，随后在空环境、trust level 0 重放主定理所需的 75,402 个声明。 |
+| **检查的目标准确** | 主定理必须是 theorem，类型精确为 `External.Library → NormalLocusTheorem`；错误目标或新增前提会被拒绝。 |
+
+其中，Lean 标准的公理检查命令是：
+
+```lean
+import NormalLocus
+#print axioms NormalLocus.normal_locus_finite_etale_conditional
+```
+
+主定理返回的公理集合只有：
+
+```text
+propext, Classical.choice, Quot.sound
+```
+
+自动验收由 [Audit.lean](Audit.lean)和[scripts/verify.py](scripts/verify.py)执行：
+不只列出公理，还会在公理超出白名单、声明类型不符或重放失败时返回失败。
+[公理审计记录](verification/audit.log)与[内核重放记录](verification/replay.json)提供实际结果。
+
+这些程序检查确认的是：**在明示的 13 项输入下，NL 的 Lean 证明没有漏证或额外公理，
+且完整推导已被内核接受。** 对输入和目标的数学含义，另有[逐项语义对照](docs/semantic-review.md)。
+
+<details>
+<summary>验证方法的出处：Lean 社区的五项准则</summary>
+
 
 Lean 社区的 [《Did you prove it?》](https://leanprover-community.github.io/did_you_prove_it.html)
 明确列出 **5 项验证准则**。本仓库逐项提供以下证据：
@@ -68,6 +102,8 @@ Lean 社区的 [《Did you prove it?》](https://leanprover-community.github.io/
 它们把“有一段看似正确的代码”落实为可复核的形式化证明。
 相关基础前提及更强核验方法见[官方验证指南](https://lean-lang.org/doc/reference/latest/ValidatingProofs/)
 和[可靠性依据](docs/soundness.md)。
+
+</details>
 
 ## 3. 外部输入是什么
 

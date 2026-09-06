@@ -8,7 +8,7 @@
   "independent_checker": "NOT_RUN",
   "toolchain": "Lean (version 4.28.0, x86_64-w64-windows-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)",
   "mathlib_revision": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
-  "manifest_sha256": "fe3e68575918b6a07667ae13096cf65d69842d7eb1b109065257f27b30ed6014",
+  "manifest_sha256": "eead5dad420d5d213d9c9c11c4df8fc22af61458da9465224d087de372273373",
   "audited_theorems": 118,
   "negative_tests": [
     "wrong-target",
@@ -33,7 +33,7 @@
   "elapsed_seconds": 804.16,
   "kernel_run_manifest_sha256": "b2a6f1676a37c5c6ba4acef0f49800b98c7163fdd2c18c1c920fd47d135027b7",
   "documentation_refresh": {
-    "checked_at": "2026-09-06T17:16:54.755319+00:00",
+    "checked_at": "2026-09-06T17:23:54.664520+00:00",
     "static_checks": "PASS",
     "proof_checker_toolchain_and_math_definitions_unchanged": true,
     "scope": "Presentation-only edit after the completed proof run; all proof inputs and executable checkers compared byte-for-byte."
