@@ -51,13 +51,14 @@
     "NormalLocus/Statement.lean": "d1280b5cd6c610283a8a6f52052d93b59d3ecf09d42be120eaed19fcebb4202f",
     "NormalLocus.lean": "b74bcd7aa75b9cf8bfb6703f48954e7ea02c6cf4b768b0191b3a0bceb6a5ac94",
     "provenance/Normal_Loci_Keller_Maps_v1.tex": "5e3fe63505a79def5c97160ec6f2585cd38e4490f746f32b4df08a41223d4d0a",
-    "README.md": "37f00f77f16458ecd7c08c8583ddc0d8400f8f1438a0c3f07b72dc239d679119",
+    "README.md": "4087a2cfb37187c83c7f551508355763ef42c84dee289917001600d7a60b8598",
     "scripts/Replay.lean": "2accc2542429fa5c94257f3b4c22b424de388aff37cf7c0f259bb0e9b7e15ecb",
     "scripts/snippets.py": "d8cbc5b705485af3f165b672479683d12efd3fa91eb4b236b835e29f4468d8ed",
     "scripts/verify.py": "922c85e636c546e43ba6c10ad12f66d6492afbd2cb746ca52a5a32383fed691e",
     ".gitattributes": "9443b771ca2a088acc7b6bce8a5fc200218c9f0627fdc6ecfeb60d1b64bf90c4",
     ".gitignore": "ec692e16abaac74326e7a8f416f912e281cb53366d3ee1c424b0ef2c55dd76c8",
     "scripts/test_verifier.py": "5c1bdcb8d7b9df4404e47ab9f5199763a52526fc692a1ed65d67bcb6fb6523d2",
-    "scripts/ReplayTest.lean": "d1d60a46677787399679b066d3dc976456d4d54a09329ccf3bc134cd09309605"
+    "scripts/ReplayTest.lean": "d1d60a46677787399679b066d3dc976456d4d54a09329ccf3bc134cd09309605",
+    "README.en.md": "0fdb6b3b34abf6a4c7a5df768591105d81425a146555c69b9dffc2aa373755e1"
   }
 }
